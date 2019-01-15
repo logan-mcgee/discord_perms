@@ -62,6 +62,6 @@ Citizen.CreateThread(function()
 		local data = json.decode(guild.data)
 		print("Permission system guild set to: "..data.name.." ("..data.id..")")
 	else
-		print("An error occured, please check your config and ensure everything is correct. Error: "..guild.data)
+		print("An error occured, please check your config and ensure everything is correct. Error: "..(guild.data or guild.code)) 
 	end
 end)

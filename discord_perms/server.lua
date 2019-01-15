@@ -2,14 +2,13 @@ local FormattedToken = "Bot "..Config.DiscordToken
 
 function DiscordRequest(method, endpoint, jsondata)
     local data = nil
-
     PerformHttpRequest("https://discordapp.com/api/"..endpoint, function(errorCode, resultData, resultHeaders)
 		data = {data=resultData, code=errorCode, headers=resultHeaders}
-    end, method, json.encode(jsondata), {["Content-Type"] = "application/json", ["Authorization"] = FormattedToken})
+    end, method, jsondata and json.encode(jsondata) or "", {["Content-Type"] = "application/json", ["Authorization"] = FormattedToken})
 
     while data == nil do
         Citizen.Wait(0)
-	end
+    end
 	
     return data
 end
@@ -57,7 +56,7 @@ function IsRolePresent(user, role)
 end
 
 Citizen.CreateThread(function()
-	local guild = DiscordRequest("GET", "guilds/"..Config.GuildId, {})
+	local guild = DiscordRequest("GET", "guilds/"..Config.GuildId)
 	if guild.code == 200 then
 		local data = json.decode(guild.data)
 		print("Permission system guild set to: "..data.name.." ("..data.id..")")

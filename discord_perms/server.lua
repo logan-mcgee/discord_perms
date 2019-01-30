@@ -13,6 +13,34 @@ function DiscordRequest(method, endpoint, jsondata)
     return data
 end
 
+function GetRoles(user)
+	local discordId = nil
+	for _, id in ipairs(GetPlayerIdentifiers(user)) do
+		if string.match(id, "discord:") then
+			discordId = string.gsub(id, "discord:", "")
+			print("Found discord id: "..discordId)
+			break
+		end
+	end
+
+	if discordId then
+		local endpoint = ("guilds/%s/members/%s"):format(Config.GuildId, discordId)
+		local member = DiscordRequest("GET", endpoint, {})
+		if member.code == 200 then
+			local data = json.decode(member.data)
+			local roles = data.roles
+			local found = true
+			return roles
+		else
+			print("An error occured, maybe they arent in the discord? Error: "..member.data)
+			return false
+		end
+	else
+		print("missing identifier")
+		return false
+	end
+end
+
 function IsRolePresent(user, role)
 	local discordId = nil
 	for _, id in ipairs(GetPlayerIdentifiers(user)) do

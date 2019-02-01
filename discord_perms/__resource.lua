@@ -6,3 +6,4 @@ server_scripts {
 }
 
 server_export "IsRolePresent"
+server_export "GetRoles"

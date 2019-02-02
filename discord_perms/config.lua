@@ -1,9 +1,10 @@
 Config = {
-	DiscordToken = "Bot Discord Token Here",
-	GuildId = "Guild ID Here",
+	DiscordToken = "",
+	GuildId = "374954943137972224", -- Discord guild id
+	Loop = true, -- Should we automatically refresh perms incase someone loses a role?
+	LoopDelay = 60000, -- How often to automatically refresh user permissions
 
-	-- Format: ["Role Nickname"] = "Role ID" You can get role id by doing \@RoleName
 	Roles = {
-		["TestRole"] = "Some Role ID" -- This would be checked by doing exports.discord_perms:IsRolePresent(user, "TestRole")
+		["374965152879214592"] = "fren" -- Will add ace "group.fren"
 	}
 }

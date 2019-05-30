@@ -55,7 +55,7 @@ function IsRolePresent(user, role)
 	if type(role) == "number" then
 		theRole = tostring(role)
 	else
-		theRole = Config.Roles[role]
+		theRole = Config.Roles[role].id
 	end
 
 	if discordId then
@@ -80,6 +80,32 @@ function IsRolePresent(user, role)
 	else
 		print("missing identifier")
 		return false
+	end
+end
+
+RegisterNetEvent('discord_perms:FetchRoles')
+AddEventHandler('discord_perms:FetchRoles', function()
+	local target = source
+	local license = GetIdentifier(target, 'license')
+	for k, v in pairs(Config.Roles) do
+		RoleToPrincipal(target, k, license)
+	end
+end)
+
+function RoleToPrincipal(user, role, license)
+	if IsRolePresent(user, role) then
+		local group = Config.Roles[role].group
+		ExecuteCommand('remove_principal identifier.' .. license .. " group." .. group ) --removing principal prevents any possible duplicates
+		ExecuteCommand('add_principal identifier.' .. license .. " group." .. group )
+		print('Added principal to ' .. group)
+    end
+end
+
+function GetIdentifier(serverId, search)
+	for i,identifier in ipairs(GetPlayerIdentifiers(serverId)) do
+		if string.find(identifier, search) then
+			return identifier
+		end
 	end
 end
 

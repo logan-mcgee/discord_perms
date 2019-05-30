@@ -5,5 +5,7 @@ server_scripts {
 	"server.lua"
 }
 
+client_script "client.lua"
+
 server_export "IsRolePresent"
 server_export "GetRoles"

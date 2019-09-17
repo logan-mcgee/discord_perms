@@ -1,5 +1,5 @@
 Config = {
-	DiscordToken = "NTgzMTQ2Nzk3MzA0NjQzNjEx.XO4Izw.BJp_eT5MEhLXq7QWiMZ-KRIURAA",
+	DiscordToken = "Token",
 	GuildId = "354062777737936896",
 	Loop = true, -- Should we automatically refresh perms incase someone loses a role?
 	LoopDelay = 60000, -- How often to automatically refresh user permissions
